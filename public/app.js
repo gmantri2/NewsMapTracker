@@ -115,7 +115,7 @@ function create_marker(coord) {
 }
 
 async function getInfo() {
-    const res = await fetch(`http://localhost:5176/info`, {
+    const res = await fetch(`http://localhost:3030/info`, {
         method: 'GET'
     })
     // const res = await fetch('https://b672-2600-4040-2086-c700-c9e6-4c46-abf9-5a98.ngrok-free.app/info', {
@@ -132,17 +132,17 @@ async function getInfo() {
         var text = news[i].title
         var url = news[i].link
 
-        // var description = news[i].description
-        // if (description) {
-        //     var result = await get_locations_list(description);
-        // } else {
-        //     var result = await get_locations_list(text);
-        // }
+        var description = news[i].description
+        if (description) {
+            var result = await get_locations_list(description);
+        } else {
+            var result = await get_locations_list(text);
+        }
 
-        var result = await get_locations_list(text);
+        //var result = await get_locations_list(text);
 
         result = filter_words(result);
-        if (result.length > 0) { //can change result criteria
+        if (result.length == 1) { //can change result criteria
             console.log(text)
             console.log(result)
             var loc = result[0]

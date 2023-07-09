@@ -1,11 +1,11 @@
 const express = require("express");
 
 const app = express()
-//const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 3030;
 
 app.use(express.static('public'))
 
-app.listen(5176, () => console.log(`Server running on port 5176`))
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
 async function update_news() {
 
