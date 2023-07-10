@@ -28,7 +28,7 @@ async function update_news() {
 
     //write to file
     var fs = require('fs');
-    fs.writeFile("/etc/secrets/latest_news.txt", JSON.stringify(result4news), function(err) {
+    fs.writeFile("latest_news.txt", JSON.stringify(result4news), function(err) {
         if (err) {
             console.log(err);
         }
@@ -38,13 +38,13 @@ async function update_news() {
 // create GET route on on express server API 
 app.get("/info", (req, res) => {
     var fs = require('fs');
-    var result4news = JSON.parse(fs.readFileSync("/etc/secrets/latest_news.txt"))
+    var result4news = JSON.parse(fs.readFileSync("latest_news.txt"))
     res.send(result4news)
 })
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '53 * * * *',
+    '0 * * * *',
     function() {
         console.log("updating news...");
         update_news()
