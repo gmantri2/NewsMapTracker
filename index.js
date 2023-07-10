@@ -10,25 +10,25 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 async function update_news() {
 
     var key = 'pub_2591697c6a94d438b79875dbcdae7c1f58443';
-    var categories = 'environment,politics,world'
+    var categories = 'world'
     var response4 = await fetch(`https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}`);
     var result4 = await response4.json();
     var result4news = result4.results
     var nextPageCode = result4.nextPage
 
-    for (var i = 0; i < 9; i++) {
-        if (nextPageCode) {
-            var response5 = await fetch(`https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`)
-            var result5 = await response5.json();
-            var result5news = result5.results
-            nextPageCode = result5.nextPage
-            result4news = result4news.concat(result5news)
-        }
-    }
+    // for (var i = 0; i < 9; i++) {
+    //     if (nextPageCode) {
+    //         var response5 = await fetch(`https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`)
+    //         var result5 = await response5.json();
+    //         var result5news = result5.results
+    //         nextPageCode = result5.nextPage
+    //         result4news = result4news.concat(result5news)
+    //     }
+    // }
 
     //write to file
     var fs = require('fs');
-    fs.writeFile("news.txt", JSON.stringify(result4news), function(err) {
+    fs.writeFile("/etc/secrets/latest_news.txt", JSON.stringify(result4news), function(err) {
         if (err) {
             console.log(err);
         }
@@ -38,13 +38,13 @@ async function update_news() {
 // create GET route on on express server API 
 app.get("/info", (req, res) => {
     var fs = require('fs');
-    var result4news = JSON.parse(fs.readFileSync('news.txt'))
+    var result4news = JSON.parse(fs.readFileSync("/etc/secrets/latest_news.txt"))
     res.send(result4news)
 })
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '0 6-23 * * *',
+    '53 * * * *',
     function() {
         console.log("updating news...");
         update_news()

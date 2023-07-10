@@ -142,7 +142,7 @@ async function getInfo() {
         //var result = await get_locations_list(text);
 
         result = filter_words(result);
-        if (result.length == 1) { //can change result criteria
+        if (result.length >= 1) { //can change result criteria
             console.log(text)
             console.log(result)
             var loc = result[0]
