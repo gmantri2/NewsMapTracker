@@ -46,8 +46,21 @@ var CronJob = require('cron').CronJob;
 var job = new CronJob(
     '0 8-23 * * *',
     function() {
-        console.log("updating news...");
+        //console.log("updating news...");
         update_news()
+    },
+    null,
+    true,
+    'America/New_York'
+);
+
+const request = require('request');
+var job = new CronJob(
+    '*/10 * * * *',
+    function() {
+        request('https://news-map-tracker.onrender.com/', (error, response, body)=>{
+            //console.log(body);
+        })
     },
     null,
     true,
