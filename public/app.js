@@ -64,6 +64,7 @@ var commonWords = new Set([
     "Mission",
     "Summit",
     "Asia",
+    "Washington"
   ]);
 
 function filter_words(cities) {
@@ -72,6 +73,15 @@ function filter_words(cities) {
          return !(commonWords.has(item));
     });
     return new_list;
+}
+
+function helper(text) {
+    for (let i = 1; i < text.length; i++) {
+        if (text[i-1] != ' ') {
+            text[i] = text[i].toLowerCase()
+        }
+    }
+    return text.join('');
 }
 
 async function import_geotext() {
@@ -135,7 +145,18 @@ async function getInfo() {
 
         var description = news[i].description
         if (description) {
-            var result = await get_locations_list(description);
+            var pos = 15;
+            if (description.length() > pos) {
+                var snippet = helper(description.substring(0,pos));
+            } else {
+                var snippet = helper(description);
+            }
+            var snippet_result = await get_locations_list(snippet);
+            if (snippet_result.length == 1) {
+                var result = snippet_result;
+            } else {
+                var result = await get_locations_list(description);
+            }
         } else {
             var result = await get_locations_list(text);
         }
