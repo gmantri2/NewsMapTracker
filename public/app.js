@@ -63,6 +63,7 @@ var commonWords = new Set([
     "Liberty",
     "Mission",
     "Summit",
+    "Asia",
   ]);
 
 function filter_words(cities) {
