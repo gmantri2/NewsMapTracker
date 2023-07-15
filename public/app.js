@@ -145,18 +145,8 @@ async function getInfo() {
 
         var description = news[i].description
         if (description) {
-            var pos = 15;
-            if (description.length() > pos) {
-                var snippet = helper(description.substring(0,pos));
-            } else {
-                var snippet = helper(description);
-            }
-            var snippet_result = await get_locations_list(snippet);
-            if (snippet_result.length == 1) {
-                var result = snippet_result;
-            } else {
-                var result = await get_locations_list(description);
-            }
+            description_processed = helper(description)
+            var result = await get_locations_list(description_processed);
         } else {
             var result = await get_locations_list(text);
         }
@@ -164,7 +154,7 @@ async function getInfo() {
         //var result = await get_locations_list(text);
 
         result = filter_words(result);
-        if (result.length == 1) { //can change result criteria
+        if (result.length == 1 || (new Set(result)).size == 1) { //can change result criteria
             console.log(text)
             console.log(result)
             var loc = result[0]
