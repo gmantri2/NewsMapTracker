@@ -145,7 +145,7 @@ async function getInfo() {
 
         var description = news[i].description
         if (description) {
-            description_processed = helper(description)
+            description_processed = helper(description.split(''))
             var result = await get_locations_list(description_processed);
         } else {
             var result = await get_locations_list(text);

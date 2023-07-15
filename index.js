@@ -16,15 +16,15 @@ async function update_news() {
     var result4news = result4.results
     var nextPageCode = result4.nextPage
 
-    for (var i = 0; i < 10; i++) {
-        if (nextPageCode) {
-            var response5 = await fetch(`https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`)
-            var result5 = await response5.json();
-            var result5news = result5.results
-            nextPageCode = result5.nextPage
-            result4news = result4news.concat(result5news)
-        }
-    }
+    // for (var i = 0; i < 10; i++) {
+    //     if (nextPageCode) {
+    //         var response5 = await fetch(`https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`)
+    //         var result5 = await response5.json();
+    //         var result5news = result5.results
+    //         nextPageCode = result5.nextPage
+    //         result4news = result4news.concat(result5news)
+    //     }
+    // }
 
     //write to file
     var fs = require('fs');
@@ -44,7 +44,7 @@ app.get("/info", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '15 8-23 * * *',
+    '21 8-23 * * *',
     function() {
         console.log("updating news...");
         update_news()
