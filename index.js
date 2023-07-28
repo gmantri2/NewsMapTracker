@@ -50,8 +50,8 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '30 7-23 * * *',
-    // '30 * * * *',
+    '32 7-23 * * *',
+    // '*/1 * * * *',
     function() {
         console.log("updating news...");
         update_news()
@@ -64,6 +64,7 @@ var job = new CronJob(
         hours = hours ? hours : 12; // the hour '0' should be '12'
         minutes = minutes < 10 ? '0'+minutes : minutes;
         var strTime = 'Last updated: ' + hours + ':' + minutes + ' ' + ampm;
+        console.log(strTime)
 
         var fs = require('fs');
         fs.writeFile("last_updated_time.txt", strTime, function(err) {
