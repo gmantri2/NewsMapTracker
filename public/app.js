@@ -209,7 +209,6 @@ async function updateTime() {
     const time = updatedTime.time;
 
     const date = new Date(time);
-    //console.log(dt.toString());
     var hours = date.getHours();
     var minutes = date.getMinutes();
     var ampm = hours >= 12 ? 'pm' : 'am';
@@ -217,7 +216,6 @@ async function updateTime() {
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? '0'+minutes : minutes;
     var strTime = 'Last updated: ' + hours + ':' + minutes + ' ' + ampm;
-    console.log(strTime)
 
     document.getElementById("data").innerHTML=strTime;
 }
