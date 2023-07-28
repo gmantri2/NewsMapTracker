@@ -33,21 +33,6 @@ async function update_news() {
             console.log(err);
         }
     });
-
-    var date = new Date();
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = 'Last updated: ' + hours + ':' + minutes + ' ' + ampm;
-
-    fs.writeFile("last_updated_time.txt", strTime, function(err) {
-        if (err) {
-            console.log(err);
-        }
-    });
 }
 
 // create GET route on on express server API 
@@ -65,10 +50,25 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '30 7-23 * * *',
+    '7 7-23 * * *',
     function() {
         console.log("updating news...");
         update_news()
+        
+        var date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = 'Last updated: ' + hours + ':' + minutes + ' ' + ampm;
+
+        fs.writeFile("last_updated_time.txt", strTime, function(err) {
+            if (err) {
+                console.log(err);
+            }
+        });
     },
     null,
     true,
