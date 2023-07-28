@@ -206,7 +206,8 @@ async function updateTime() {
     //     method: 'GET'
     // })
     const updatedTime = await lastUpdatedTime.json()
-    document.getElementById("data").innerHTML=updatedTime.time;
+    const time = updatedTime.time;
+    document.getElementById("data").innerHTML=time;
 }
 
 updateTime();

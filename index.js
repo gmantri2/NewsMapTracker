@@ -35,7 +35,7 @@ async function update_news() {
     });
 
     var date = new Date();
-    var hours = date.getHours();
+    var hours = date.getHours()-4;
     var minutes = date.getMinutes();
     var ampm = hours >= 12 ? 'pm' : 'am';
     hours = hours % 12;
