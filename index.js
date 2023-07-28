@@ -16,15 +16,15 @@ async function update_news() {
     var result4news = result4.results
     var nextPageCode = result4.nextPage
 
-    for (var i = 0; i < 10; i++) {
-        if (nextPageCode) {
-            var response5 = await fetch(`https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`)
-            var result5 = await response5.json();
-            var result5news = result5.results
-            nextPageCode = result5.nextPage
-            result4news = result4news.concat(result5news)
-        }
-    }
+    // for (var i = 0; i < 10; i++) {
+    //     if (nextPageCode) {
+    //         var response5 = await fetch(`https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`)
+    //         var result5 = await response5.json();
+    //         var result5news = result5.results
+    //         nextPageCode = result5.nextPage
+    //         result4news = result4news.concat(result5news)
+    //     }
+    // }
 
     //write to file
     var fs = require('fs');
@@ -50,21 +50,21 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '32 7-23 * * *',
+    '56 7-23 * * *',
     // '*/1 * * * *',
     function() {
         console.log("updating news...");
         update_news()
         
         var date = new Date();
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-        var strTime = 'Last updated: ' + hours + ':' + minutes + ' ' + ampm;
-        console.log(strTime)
+        // var hours = date.getHours();
+        // var minutes = date.getMinutes();
+        // var ampm = hours >= 12 ? 'pm' : 'am';
+        // hours = hours % 12;
+        // hours = hours ? hours : 12; // the hour '0' should be '12'
+        // minutes = minutes < 10 ? '0'+minutes : minutes;
+        // //var strTime = 'Last updated: ' + hours + ':' + minutes + ' ' + ampm;
+        var strTime = date.toISOString();
 
         var fs = require('fs');
         fs.writeFile("last_updated_time.txt", strTime, function(err) {
