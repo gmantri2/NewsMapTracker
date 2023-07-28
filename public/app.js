@@ -198,4 +198,6 @@ async function getInfo() {
       });
 }
 
+var lastUpdatedTime = process.env.LAST_UPDATED_TIME;
+document.getElementById("data").innerHTML=lastUpdatedTime;
 getInfo();
