@@ -33,6 +33,16 @@ async function update_news() {
             console.log(err);
         }
     });
+
+    var date = new Date();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = 'Last updated: ' + hours + ':' + minutes + ' ' + ampm;
+    process.env.LAST_UPDATED_TIME = strTime;
 }
 
 // create GET route on on express server API 

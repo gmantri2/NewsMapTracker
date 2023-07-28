@@ -129,7 +129,7 @@ async function getInfo() {
     const res = await fetch(`https://news-map-tracker.onrender.com/info`, {
         method: 'GET'
     })
-    // const res = await fetch('https://b672-2600-4040-2086-c700-c9e6-4c46-abf9-5a98.ngrok-free.app/info', {
+    // const res = await fetch('http://localhost:3030/info', {
     //     method: 'GET'
     // })
     const news = await res.json()
