@@ -198,6 +198,16 @@ async function getInfo() {
       });
 }
 
-var lastUpdatedTime = process.env.LAST_UPDATED_TIME;
-document.getElementById("data").innerHTML=lastUpdatedTime;
+async function updateTime() {
+    var lastUpdatedTime = await fetch(`https://news-map-tracker.onrender.com/time`, {
+        method: 'GET'
+    })
+    // const lastUpdatedTime = await fetch('http://localhost:3030/time', {
+    //     method: 'GET'
+    // })
+    const updatedTime = await lastUpdatedTime.json()
+    document.getElementById("data").innerHTML=updatedTime.time;
+}
+
+updateTime();
 getInfo();
