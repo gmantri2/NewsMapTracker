@@ -64,7 +64,8 @@ var commonWords = new Set([
     "Mission",
     "Summit",
     "Asia",
-    "Washington"
+    "Washington",
+    "Un",
   ]);
 
 function filter_words(cities) {
@@ -162,7 +163,12 @@ async function getInfo() {
             var query2 = "&limit=5"
             var response2 = await fetch(`https://api.maptiler.com/geocoding/` + loc + `.json?key=${key}` + query2);
             var result2 = await response2.json();
-            var coord = result2.features[0].center
+
+            var index = 0;
+            if (loc == "Athens" && result2.features.length > 1) {
+                index = 1;
+            }
+            var coord = result2.features[index].center
             console.log(coord)
 
             const marker = create_marker(coord);
