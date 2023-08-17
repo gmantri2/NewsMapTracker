@@ -142,6 +142,9 @@ async function getInfo() {
     await import_geotext();
     for (let i = 0; i < news.length; i++) {
         var text = news[i].title
+        if (!text) {
+            continue;
+        }
         var url = news[i].link
 
         var description = news[i].description
