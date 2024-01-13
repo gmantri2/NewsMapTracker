@@ -1,5 +1,7 @@
 // ----------map stuff
 
+import fetch from "node-fetch";
+
 // const PORT = process.env.PORT || 3030;
 
 const container = document.getElementById('popup');

@@ -7,6 +7,8 @@ app.use(express.static('public'))
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
+const fetch = require("node-fetch");
+
 async function update_news() {
 
     var key = 'pub_2591697c6a94d438b79875dbcdae7c1f58443';
