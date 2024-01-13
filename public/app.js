@@ -119,7 +119,7 @@ function create_marker(coord) {
             image: new ol.style.Icon({
             anchor: [0.5, 1],
             crossOrigin: 'anonymous',
-            src: 'marker-icon.png',
+            src: 'https://raw.githubusercontent.com/maptiler/openlayers-samples/main/default-marker/marker-icon.png',
             })
         })
     });
