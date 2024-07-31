@@ -128,9 +128,14 @@ function create_marker(coord) {
 }
 
 async function getInfo() {
-    const res = await fetch(`https://news-map-tracker.onrender.com/info`, {
+    var currUrl = window.location.href
+    console.log("TEST: " + currUrl + `/info`)
+    var res = await fetch(currUrl + `/info`, {
         method: 'GET'
     })
+    // const res = await fetch(`https://news-map-tracker.onrender.com/info`, {
+    //     method: 'GET'
+    // })
     // const res = await fetch('http://localhost:3030/info', {
     //     method: 'GET'
     // })
@@ -209,9 +214,13 @@ async function getInfo() {
 }
 
 async function updateTime() {
-    var lastUpdatedTime = await fetch(`https://news-map-tracker.onrender.com/time`, {
+    var currUrl = window.location.href
+    var lastUpdatedTime = await fetch(currUrl + `/time`, {
         method: 'GET'
     })
+    // var lastUpdatedTime = await fetch(`https://news-map-tracker.onrender.com/time`, {
+    //     method: 'GET'
+    // })
     // const lastUpdatedTime = await fetch('http://localhost:3030/time', {
     //     method: 'GET'
     // })
