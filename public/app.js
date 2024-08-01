@@ -216,7 +216,7 @@ async function getInfo() {
 
             content.innerHTML = url_ref_new;
             if (image != "") {
-                content.innerHTML += "<img src="+image+"/>"
+                content.innerHTML += "<img src="+image+"width=\"100%\" height=\"100%\"/>"
             }
             const coordinate = evt.coordinate;
             overlay.setPosition(coordinate);

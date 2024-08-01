@@ -52,7 +52,7 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '38 7-23 * * *',
+    '48 7-23 * * *',
     // '*/3 * * * *',
     function() {
         console.log("updating news...");
