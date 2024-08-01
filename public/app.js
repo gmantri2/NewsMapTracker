@@ -129,7 +129,6 @@ function create_marker(coord) {
 
 async function getInfo() {
     var currUrl = window.location.href
-    console.log("TEST: " + currUrl + `info`)
     var res = await fetch(currUrl + `info`, {
         method: 'GET'
     })
@@ -145,6 +144,7 @@ async function getInfo() {
     var layers = [];
     var urls = [];
     var titles = [];
+    var images = [];
     await import_geotext();
     for (let i = 0; i < news.length; i++) {
         var text = news[i].title
@@ -187,6 +187,13 @@ async function getInfo() {
             layers.push(marker);
             urls.push(url);
             titles.push(text);
+            
+            image_link = news[i].image_url
+            if (image_link) {
+                images.push(image_link)
+            } else {
+                images.push("")
+            }
         }
     }
 
@@ -201,12 +208,16 @@ async function getInfo() {
         if (rets) {
             const url = urls[rets[1]];
             const title = titles[rets[1]]
+            const image = images[rets[1]]
             var url_ref = title.link(url);
 
             var position = 3;
             var url_ref_new = [url_ref.slice(0, position), "target=\"_blank\" ", url_ref.slice(position)].join('');
 
             content.innerHTML = url_ref_new;
+            if (image != "") {
+                content.innerHTML += "<img src="+image+"/>"
+            }
             const coordinate = evt.coordinate;
             overlay.setPosition(coordinate);
         }
