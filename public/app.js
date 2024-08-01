@@ -215,9 +215,10 @@ async function getInfo() {
             var url_ref_new = [url_ref.slice(0, position), "target=\"_blank\" ", url_ref.slice(position)].join('');
 
             content.innerHTML = url_ref_new;
-            if (image != "") {
-                content.innerHTML += "<img src="+image+" width=\"50px\" height=\"40px\"/>"
-            }
+            console.log("image link: " + image)
+            // if (image != "") {
+            //     content.innerHTML += "<img src="+image+" width=\"50px\" height=\"40px\"/>"
+            // }
             const coordinate = evt.coordinate;
             overlay.setPosition(coordinate);
         }
