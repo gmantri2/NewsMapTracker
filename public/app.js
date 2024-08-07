@@ -214,10 +214,10 @@ async function getInfo() {
             var position = 3;
             var url_ref_new = [url_ref.slice(0, position), "target=\"_blank\" ", url_ref.slice(position)].join('');
 
-            content.innerHTML = url_ref_new;
+            content.innerHTML = url_ref_new + "\n";
             //console.log("image link: " + image)
             if (image != "") {
-                content.innerHTML += "<img src="+image+" width='50px' height='40px'>"
+                content.innerHTML += "<img src="+image+" width='280px' height='210px'>"
             }
             const coordinate = evt.coordinate;
             overlay.setPosition(coordinate);
