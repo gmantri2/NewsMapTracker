@@ -18,7 +18,7 @@ async function update_news() {
     var result4news = result4.results
     var nextPageCode = result4.nextPage
 
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 10; i++) {
         if (nextPageCode) {
             var response5 = await fetch(`https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`)
             var result5 = await response5.json();
@@ -52,7 +52,7 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '58 7-23 * * *',
+    '30 7-23 * * *',
     // '*/3 * * * *',
     function() {
         console.log("updating news...");
