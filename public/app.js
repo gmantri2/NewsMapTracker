@@ -221,8 +221,7 @@ async function getInfo() {
                 new_img.src = image_url;
                 if (new_img.complete) {
                     content.innerHTML += "\n\n"
-                    //content.innerHTML += "<img src="+image_url+" width='280px' height='190px'>"
-                    content.innerHTML += new_img
+                    content.innerHTML += "<img src="+image_url+" width='280px' height='190px'>"
                 }
             }
             const coordinate = evt.coordinate;
