@@ -217,7 +217,7 @@ async function getInfo() {
             content.innerHTML = url_ref_new;
             //console.log("image link: " + image)
             if (image_url != "") {
-                content.innerHTML += "\n"
+                content.innerHTML += "<br />"
                 content.innerHTML += "<img src="+image_url+" width='280px' height='190px' onerror=\"this.style.display='none'\">"
             }
             const coordinate = evt.coordinate;
