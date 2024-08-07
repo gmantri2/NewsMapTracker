@@ -208,16 +208,22 @@ async function getInfo() {
         if (rets) {
             const url = urls[rets[1]];
             const title = titles[rets[1]]
-            const image = images[rets[1]]
+            const image_url = images[rets[1]]
             var url_ref = title.link(url);
 
             var position = 3;
             var url_ref_new = [url_ref.slice(0, position), "target=\"_blank\" ", url_ref.slice(position)].join('');
 
-            content.innerHTML = url_ref_new + "\n";
+            content.innerHTML = url_ref_new;
             //console.log("image link: " + image)
-            if (image != "") {
-                content.innerHTML += "<img src="+image+" width='280px' height='210px'>"
+            if (image_url != "") {
+                const new_img = new Image(280, 190);
+                new_img.src = image_url;
+                if (new_img.complete) {
+                    content.innerHTML += "\n\n"
+                    //content.innerHTML += "<img src="+image_url+" width='280px' height='190px'>"
+                    content.innerHTML += new_img
+                }
             }
             const coordinate = evt.coordinate;
             overlay.setPosition(coordinate);
