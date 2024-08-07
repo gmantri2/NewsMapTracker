@@ -217,12 +217,8 @@ async function getInfo() {
             content.innerHTML = url_ref_new;
             //console.log("image link: " + image)
             if (image_url != "") {
-                const new_img = new Image(280, 190);
-                new_img.src = image_url;
-                if (new_img.complete) {
-                    content.innerHTML += "\n\n"
-                    content.innerHTML += "<img src="+image_url+" width='280px' height='190px'>"
-                }
+                content.innerHTML += "\n"
+                content.innerHTML += "<img src="+image_url+" width='280px' height='190px' onerror=\"this.style.display='none'\">"
             }
             const coordinate = evt.coordinate;
             overlay.setPosition(coordinate);
