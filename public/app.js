@@ -49,6 +49,16 @@ controls: ol.control.defaults.defaults({attribution: false}).extend([attribution
 overlays: [overlay],
 });
 
+// const hoverStyle = new ol.style.Style({
+//     fill: new ol.style.Fill({
+//         color: '#eeeeee',
+//     }),
+//     stroke: new ol.style.Stroke({
+//         color: 'rgba(255, 255, 255, 0.7)',
+//         width: 2,
+//     }),
+// });
+
 var commonWords = new Set([
     "Police",
     "Best",
@@ -59,6 +69,7 @@ var commonWords = new Set([
     "Chelsea",
     "Opportunity",
     "Bo",
+    "Boo",
     "Mobile",
     "Liberty",
     "Mission",
@@ -218,7 +229,7 @@ async function getInfo() {
             // console.log("image link: " + image_url)
             if (image_url != "") {
                 content.innerHTML += "<br>"
-                content.innerHTML += "<img src="+image_url+" width='250px' height='168px' onerror=\"this.style.display='none'\">"
+                content.innerHTML += "<img src="+image_url+" width='250px' height='160px' onerror=\"this.style.display='none'\">"
             }
             const coordinate = evt.coordinate;
             overlay.setPosition(coordinate);
@@ -254,3 +265,20 @@ async function updateTime() {
 
 updateTime();
 getInfo();
+
+// const marker = create_marker([0,0]);
+// map.addLayer(marker);
+
+// let selected = null;
+// map.on('pointermove', function (e) {
+//     if (selected !== null) {
+//         selected.setStyle(undefined);
+//         selected = null;
+//     }
+//     map.forEachFeatureAtPixel(e.pixel, function (f) {
+//         selected = f;
+//         hoverStyle.getFill().setColor('#eeeeee');
+//         f.setStyle(hoverStyle);
+//         //return true;
+//     });
+// });
