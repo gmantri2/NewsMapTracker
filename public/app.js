@@ -234,7 +234,18 @@ async function getInfo() {
             const coordinate = evt.coordinate;
             overlay.setPosition(coordinate);
         }
-      });
+    });
+
+    map.on("pointermove", function (evt) {
+        var hit = this.forEachFeatureAtPixel(evt.pixel, function() {
+            return true;
+        }); 
+        if (hit) {
+            this.getTargetElement().style.cursor = 'pointer';
+        } else {
+            this.getTargetElement().style.cursor = '';
+        }
+    });
 }
 
 async function updateTime() {
