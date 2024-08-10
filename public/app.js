@@ -229,7 +229,7 @@ async function getInfo() {
             // console.log("image link: " + image_url)
             if (image_url != "") {
                 content.innerHTML += "<br>"
-                content.innerHTML += "<img src="+image_url+" width='250px' height='160px' onerror=\"this.style.display='none'\">"
+                content.innerHTML += "<img src="+image_url+" width='250px' height='155px' onerror=\"this.style.display='none'\">"
             }
             const coordinate = evt.coordinate;
             overlay.setPosition(coordinate);
@@ -269,11 +269,25 @@ async function updateTime() {
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = 'Last updated: ' + hours + ':' + minutes + ' ' + ampm;
+    var strTime = 'Last updated at: ' + hours + ':' + minutes + ' ' + ampm;
 
-    document.getElementById("data").innerHTML=strTime;
+    document.getElementById("data").innerHTML += "<div class=\"time-text\">" + strTime + "</div>";
 }
 
+async function getDate() {
+    const months = ["January", "February", "March", "April", "May", "June", "July", 
+        "August", "September", "October", "November", "December"]
+
+    var currDate = new Date();
+    const currMonth = currDate.getMonth()
+    const currDay = currDate.getDate()
+
+    var dateElement = document.getElementById("data")
+    dateElement.innerHTML = "<div class=\"date-text\">" + months[currMonth] + " " + currDay + "</div>";
+    //dateElement.innerHTML += "<div class=\"time-text\">" + "Last updated at: 11:30 pm" + "</div>"
+}
+
+getDate()
 updateTime();
 getInfo();
 
