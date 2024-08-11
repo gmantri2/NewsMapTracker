@@ -284,9 +284,9 @@ async function getDate() {
 async function run() {
     await getInfo();
     document.getElementById("loader").style.display = "none";
+    map.setTarget('map');
     await getDate();
     await updateTime();
-    map.setTarget('map');
 }
 
 run();
