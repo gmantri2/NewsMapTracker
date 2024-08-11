@@ -277,10 +277,15 @@ async function getDate() {
     //dateElement.innerHTML += "<div class=\"time-text\">" + "Last updated at: 11:30 pm" + "</div>"
 }
 
+// function sleep(ms) {
+//     return new Promise(resolve => setTimeout(resolve, ms));
+// }
+
 async function run() {
+    await getInfo();
+    document.getElementById("loader").style.display = "none";
     await getDate();
     await updateTime();
-    await getInfo();
     map.setTarget('map');
 }
 
