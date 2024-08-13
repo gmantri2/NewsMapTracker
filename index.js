@@ -78,19 +78,19 @@ async function update_news() {
     );
     var result4 = await response4.json();
     var news = result4.results
-    var nextPageCode = result4.nextPage
+    // var nextPageCode = result4.nextPage
 
-    for (var i = 0; i < 10; i++) {
-        if (nextPageCode) {
-            var response5 = await fetch(
-                `https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`
-            )
-            var result5 = await response5.json();
-            var result5news = result5.results
-            nextPageCode = result5.nextPage
-            news = news.concat(result5news)
-        }
-    }
+    // for (var i = 0; i < 10; i++) {
+    //     if (nextPageCode) {
+    //         var response5 = await fetch(
+    //             `https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`
+    //         )
+    //         var result5 = await response5.json();
+    //         var result5news = result5.results
+    //         nextPageCode = result5.nextPage
+    //         news = news.concat(result5news)
+    //     }
+    // }
 
     var coords = [];
     var urls = [];
@@ -196,7 +196,7 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '30 7-23 * * *',
+    '3 7-23 * * *',
     // '*/3 * * * *',
     function() {
         console.log("updating news...");
