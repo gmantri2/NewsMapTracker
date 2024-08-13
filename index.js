@@ -8,29 +8,158 @@ app.use(express.static('public'))
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
 const fetch = require("node-fetch");
+const { loadPyodide } = require("pyodide");
+
+var commonWords = new Set([
+    "Police",
+    "Best",
+    "Sale",
+    "Most",
+    "Man",
+    "Date",
+    "Chelsea",
+    "Opportunity",
+    "Bo",
+    "Boo",
+    "Mobile",
+    "Liberty",
+    "Mission",
+    "Summit",
+    "Asia",
+    "Washington",
+    "Un",
+    "Of",
+  ]);
+
+function filter_words(cities) {
+    let new_list = cities.filter(function(item)
+    {
+         return !(commonWords.has(item));
+    });
+    return new_list;
+}
+
+function helper(text) {
+    for (let i = 1; i < text.length; i++) {
+        if (text[i-1] != ' ') {
+            text[i] = text[i].toLowerCase()
+        }
+    }
+    return text.join('');
+}
+
+async function import_geotext() {
+    const pyodideRuntime = await loadPyodide();
+    await pyodideRuntime.loadPackage("micropip");
+    const micropip = pyodideRuntime.pyimport("micropip");
+    await micropip.install("geotext");
+    pyodideRuntime.runPython(`
+      import js
+      from geotext import GeoText
+      def get_locations(sample_text):
+        places = GeoText(sample_text)
+        return places.cities
+      js.get_locations = get_locations
+    `);
+}
+
+async function get_locations_list(news_text) {
+    news_text = news_text.replace(/['"]+/g, '');
+    var output = (Array.from(get_locations(news_text)))
+    return output
+}
 
 async function update_news() {
 
-    var key = 'pub_2591697c6a94d438b79875dbcdae7c1f58443';
+    const key = 'pub_2591697c6a94d438b79875dbcdae7c1f58443';
     var categories = 'world'
-    var response4 = await fetch(`https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}`);
+    var response4 = await fetch(
+        `https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}`
+    );
     var result4 = await response4.json();
-    var result4news = result4.results
+    var news = result4.results
     var nextPageCode = result4.nextPage
 
     for (var i = 0; i < 10; i++) {
         if (nextPageCode) {
-            var response5 = await fetch(`https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`)
+            var response5 = await fetch(
+                `https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`
+            )
             var result5 = await response5.json();
             var result5news = result5.results
             nextPageCode = result5.nextPage
-            result4news = result4news.concat(result5news)
+            news = news.concat(result5news)
+        }
+    }
+
+    var coords = [];
+    var urls = [];
+    var titles = [];
+    var images = [];
+    await import_geotext();
+    for (let i = 0; i < news.length; i++) {
+        var text = news[i].title
+        if (!text) {
+            continue;
+        }
+        var url = news[i].link
+
+        var description = news[i].description
+        if (description) {
+            description_processed = helper(description.split(''))
+            var result = await get_locations_list(description_processed);
+        } else {
+            var result = await get_locations_list(text);
+        }
+
+        result = filter_words(result);
+        const maptiler_key = 'FAvR4BNiT6kBQVkKBpE4';
+        if (result.length == 1 || (new Set(result)).size == 1) { //can change result criteria
+            var loc = result[0]
+            var query2 = "&limit=5"
+            var response2 = await fetch(
+                `https://api.maptiler.com/geocoding/` + loc + `.json?key=${maptiler_key}` + query2
+            );
+            var result2 = await response2.json();
+
+            // cleaning, make separate function
+            var index = 0;
+            if (loc == "Athens" && result2.features.length > 1) {
+                index = 1;
+            }
+            
+            var coord = result2.features[index].center
+            coords.push(coord)
+            urls.push(url);
+            titles.push(text);
+            
+            image_link = news[i].image_url
+            if (image_link) {
+                images.push(image_link)
+            } else {
+                images.push("")
+            }
         }
     }
 
     //write to file
     var fs = require('fs');
-    fs.writeFile("latest_news.txt", JSON.stringify(result4news), function(err) {
+    fs.writeFile("coordinates.txt", JSON.stringify(coords), function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    fs.writeFile("urls.txt", JSON.stringify(urls), function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    fs.writeFile("titles.txt", JSON.stringify(titles), function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    fs.writeFile("images.txt", JSON.stringify(images), function(err) {
         if (err) {
             console.log(err);
         }
@@ -38,10 +167,25 @@ async function update_news() {
 }
 
 // create GET route on on express server API 
-app.get("/info", (req, res) => {
+app.get("/coordinates", (req, res) => {
     var fs = require('fs');
-    var result4news = JSON.parse(fs.readFileSync("latest_news.txt"))
-    res.send(result4news)
+    var coordinates_arr = JSON.parse(fs.readFileSync("coordinates.txt"))
+    res.send(coordinates_arr)
+})
+app.get("/urls", (req, res) => {
+    var fs = require('fs');
+    var urls_arr = JSON.parse(fs.readFileSync("urls.txt"))
+    res.send(urls_arr)
+})
+app.get("/titles", (req, res) => {
+    var fs = require('fs');
+    var titles_arr = JSON.parse(fs.readFileSync("titles.txt"))
+    res.send(titles_arr)
+})
+app.get("/images", (req, res) => {
+    var fs = require('fs');
+    var images_arr = JSON.parse(fs.readFileSync("images.txt"))
+    res.send(images_arr)
 })
 
 app.get("/time", (req, res) => {

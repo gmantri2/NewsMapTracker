@@ -17,6 +17,7 @@
     "express-middleware": "^3.4.2",
     "node": "^20.4.0",
     "node-fetch": "^2.7.0",
+    "pyodide": "^0.26.2",
     "request": "^2.88.2",
     "requirejs": "^2.3.6"
   },
