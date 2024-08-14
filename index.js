@@ -139,6 +139,13 @@ async function update_news() {
             } else {
                 images.push("")
             }
+
+            // logs
+            console.log("Title: " + text)
+            console.log("Description: " + description)
+            console.log("URL: " + url)
+            console.log("Location: " + loc)
+            console.log("\n")
         }
     }
 

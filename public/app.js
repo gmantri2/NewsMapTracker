@@ -120,7 +120,6 @@ async function getInfo() {
             var url_ref_new = [url_ref.slice(0, position), "target=\"_blank\" ", url_ref.slice(position)].join('');
 
             content.innerHTML = url_ref_new;
-            // console.log("image link: " + image_url)
             if (image_url != "") {
                 content.innerHTML += "<br>"
                 content.innerHTML += "<img src="+image_url+" width='250px' height='150px' onerror=\"this.style.display='none'\">"
