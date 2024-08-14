@@ -29,6 +29,8 @@ var commonWords = new Set([
     "Washington",
     "Un",
     "Of",
+    "David",
+    "Leer"
   ]);
 
 function filter_words(cities) {

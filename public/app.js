@@ -88,13 +88,6 @@ async function getInfo() {
     titles = await titles.json()
     images = await images.json()
 
-    // const res = await fetch(`https://news-map-tracker.onrender.com/info`, {
-    //     method: 'GET'
-    // })
-    // const res = await fetch('http://localhost:3030/info', {
-    //     method: 'GET'
-    // })
-
     var layers = [];
     for (let i = 0; i < coordinates.length; i++) {
         const marker = create_marker(coordinates[i]);
