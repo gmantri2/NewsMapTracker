@@ -15,10 +15,10 @@ html, body {
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
   padding: 15px;
   border-radius: 10px;
-  border: 1px solid #cccccc;
+  border: 2px solid #051285;
   bottom: 12px;
   left: -50px;
-  min-width: 250px;
+  min-width: 255px;
 }
 .ol-popup:after, .ol-popup:before {
   top: 100%;
@@ -57,6 +57,7 @@ html, body {
   right: 16px;
   background-color: white;
   padding: 8px;
+  border-radius: 10px;
 }
 
 .date-text {
@@ -87,4 +88,16 @@ html, body {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.titles {
+  text-decoration: none;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+.break{
+    display:block;
+    margin:0.3em;
 }

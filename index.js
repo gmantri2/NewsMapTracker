@@ -73,6 +73,10 @@ async function get_locations_list(news_text) {
 
 async function update_news() {
 
+    await import_geotext();
+
+    // var news = [];
+
     const key = 'pub_2591697c6a94d438b79875dbcdae7c1f58443';
     var categories = 'world'
     var response4 = await fetch(
@@ -98,7 +102,6 @@ async function update_news() {
     var urls = [];
     var titles = [];
     var images = [];
-    await import_geotext();
     for (let i = 0; i < news.length; i++) {
         var text = news[i].title
         if (!text) {
@@ -205,7 +208,7 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '30 7-9 * * *',
+    '30 7-23 * * *',
     // '*/3 * * * *',
     function() {
         console.log("updating news...");

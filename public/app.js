@@ -112,10 +112,10 @@ async function getInfo() {
             var position = 3;
             var url_ref_new = [url_ref.slice(0, position), "target=\"_blank\" ", url_ref.slice(position)].join('');
 
-            content.innerHTML = url_ref_new;
+            content.innerHTML = url_ref_new.replace("a target=", "a class=titles target=");
             if (image_url != "") {
-                content.innerHTML += "<br>"
-                content.innerHTML += "<img src="+image_url+" width='250px' height='150px' onerror=\"this.style.display='none'\">"
+                content.innerHTML += "<span class=break></span>"
+                content.innerHTML += "<img src="+image_url+" width='255px' height='153px' onerror=\"this.style.display='none'\">"
             }
             overlay.setPosition(evt.coordinate);
         }
