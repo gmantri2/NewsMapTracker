@@ -150,6 +150,7 @@ async function update_news() {
             console.log("Description: " + description)
             console.log("URL: " + url)
             console.log("Location: " + loc)
+            console.log("Coordinates: " + coord)
             console.log("\n")
         }
     }
@@ -208,7 +209,7 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '45 7-23 * * *',
+    '30 7-23 * * *',
     // '*/3 * * * *',
     function() {
         console.log("updating news...");
