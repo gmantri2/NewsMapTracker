@@ -114,8 +114,12 @@ async function getInfo() {
 
             content.innerHTML = url_ref_new.replace("a target=", "a class=titles target=");
             if (image_url != "") {
-                content.innerHTML += "<span class=break></span>"
-                content.innerHTML += "<img src="+image_url+" width='255px' height='153px' onerror=\"this.style.display='none'\">"
+                var img = new Image();   
+                img.onload = function(){
+                    content.innerHTML += "<span class=break></span>"
+                    content.innerHTML += "<img src="+image_url+" width='255px' height='153px' onerror=\"this.style.display='none'\">"
+                };
+                img.src = image_url; 
             }
             overlay.setPosition(evt.coordinate);
         }
