@@ -15,7 +15,7 @@ html, body {
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
   padding: 15px;
   border-radius: 10px;
-  border: 2px solid #051285;
+  border: 1.5px solid #051285;
   bottom: 12px;
   left: -50px;
   min-width: 255px;
@@ -44,8 +44,8 @@ html, body {
 .ol-popup-closer {
   text-decoration: none;
   position: absolute;
-  top: 2px;
-  right: 8px;
+  top: 3px;
+  right: 5.5px;
 }
 .ol-popup-closer:after {
   content: "✖";
