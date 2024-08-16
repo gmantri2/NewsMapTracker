@@ -121,19 +121,13 @@ async function update_news() {
         const maptiler_key = 'FAvR4BNiT6kBQVkKBpE4';
         if (result.length == 1 || (new Set(result)).size == 1) { //can change result criteria
             var loc = result[0]
-            var query2 = "&limit=5"
+            var query2 = "&limit=1"
             var response2 = await fetch(
                 `https://api.maptiler.com/geocoding/` + loc + `.json?key=${maptiler_key}` + query2
             );
             var result2 = await response2.json();
-
-            // cleaning, make separate function
-            var index = 0;
-            if (loc == "Athens" && result2.features.length > 1) {
-                index = 1;
-            }
-            
-            var coord = result2.features[index].center
+      
+            var coord = result2.features[0].center
             coords.push(coord)
             urls.push(url);
             titles.push(text);
