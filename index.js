@@ -71,6 +71,13 @@ async function get_locations_list(news_text) {
     return output
 }
 
+const citiesMap = {};
+citiesMap["Doha"] = [55.31108244714429, 25.595757424620974];
+citiesMap["Mexico City"] = [-99.04820460987025, 19.57277134329857];
+citiesMap["San Juan"] = [-65.94532868479915, 18.493184104636903];
+citiesMap["Belgrade"] = [20.485134507215157, 44.932101250475256];
+citiesMap["Hanoi"] = [105.84832559788997, 21.108389027973118];
+
 async function update_news() {
 
     await import_geotext();
@@ -121,13 +128,17 @@ async function update_news() {
         const maptiler_key = 'FAvR4BNiT6kBQVkKBpE4';
         if (result.length == 1 || (new Set(result)).size == 1) { //can change result criteria
             var loc = result[0]
-            var query2 = "&limit=1"
-            var response2 = await fetch(
-                `https://api.maptiler.com/geocoding/` + loc + `.json?key=${maptiler_key}` + query2
-            );
-            var result2 = await response2.json();
-      
-            var coord = result2.features[0].center
+
+            var coord = citiesMap.get(loc)
+            if (!coord) {
+                var query2 = "&limit=1"
+                var response2 = await fetch(
+                    `https://api.maptiler.com/geocoding/` + loc + `.json?key=${maptiler_key}` + query2
+                );
+                var result2 = await response2.json();
+                coord = result2.features[0].center
+            }
+
             coords.push(coord)
             urls.push(url);
             titles.push(text);
