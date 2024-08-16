@@ -129,7 +129,7 @@ async function update_news() {
         if (result.length == 1 || (new Set(result)).size == 1) { //can change result criteria
             var loc = result[0]
 
-            var coord = citiesMap.get(loc)
+            var coord = citiesMap[loc]
             if (!coord) {
                 var query2 = "&limit=1"
                 var response2 = await fetch(
