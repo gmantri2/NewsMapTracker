@@ -77,7 +77,7 @@ citiesMap["Mexico City"] = [-99.04820460987025, 19.57277134329857];
 citiesMap["San Juan"] = [-65.94532868479915, 18.493184104636903];
 citiesMap["Belgrade"] = [20.485134507215157, 44.932101250475256];
 citiesMap["Hanoi"] = [105.84832559788997, 21.108389027973118];
-citiesMap["Gaza"] = [34.48144540328802, 31.525704352299336];
+citiesMap["Copenhagen"] = [12.437100168757228, 55.767786832674624];
 
 async function update_news() {
 
@@ -215,7 +215,7 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '16 7-23 * * *',
+    '30 7-23 * * *',
     // '*/3 * * * *',
     function() {
         console.log("updating news...");
