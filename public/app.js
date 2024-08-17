@@ -117,7 +117,7 @@ async function getInfo() {
                 // var img = new Image();   
                 // img.onload = function(){
                 content.innerHTML += "<span class=break></span>"
-                content.innerHTML += "<img src="+image_url+" width='255px' height='153px' onerror=\"this.style.display='none'\">"
+                content.innerHTML += "<img src="+image_url+" width='255px' height='153px' onerror=\"this.onerror=null;this.src='image-not-found.png'\">"
                 // };
                 // img.src = image_url; 
             }
