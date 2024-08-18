@@ -19,6 +19,8 @@ var commonWords = new Set([
     "Date",
     "Chelsea",
     "Opportunity",
+    "University",
+    "Machado",
     "Bo",
     "Boo",
     "Mobile",
