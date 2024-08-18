@@ -32,7 +32,10 @@ var commonWords = new Set([
     "Un",
     "Of",
     "David",
+    "Deal",
+    "Pop",
     "Leer",
+    "Brits",
     "Much"
   ]);
 
@@ -81,6 +84,7 @@ citiesMap["San Juan"] = [-65.94532868479915, 18.493184104636903];
 citiesMap["Belgrade"] = [20.485134507215157, 44.932101250475256];
 citiesMap["Hanoi"] = [105.84832559788997, 21.108389027973118];
 citiesMap["Copenhagen"] = [12.437100168757228, 55.767786832674624];
+citiesMap["San Antonio"] = [-98.49514067173, 29.424600485036];
 
 async function update_news() {
 
