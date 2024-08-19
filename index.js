@@ -85,13 +85,12 @@ const citiesMap = {};
 // citiesMap["Hanoi"] = [105.84832559788997, 21.108389027973118];
 // citiesMap["Copenhagen"] = [12.437100168757228, 55.767786832674624];
 // citiesMap["San Antonio"] = [-98.49514067173, 29.424600485036];
-citiesMap["Aden"] = [45.0285038352013, 12.7895851857731];
+// citiesMap["Aden"] = [45.0285038352013, 12.7895851857731];
+citiesMap["Liverpool"] = [-2.9968803151624908, 53.40829622385262];
 
 async function update_news() {
 
     await import_geotext();
-
-    // var news = [];
 
     const key = 'pub_2591697c6a94d438b79875dbcdae7c1f58443';
     var categories = 'world'
@@ -102,7 +101,7 @@ async function update_news() {
     var news = result4.results
     var nextPageCode = result4.nextPage
 
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 2; i++) {
         if (nextPageCode) {
             var response5 = await fetch(
                 `https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`
@@ -134,7 +133,7 @@ async function update_news() {
         }
 
         result = filter_words(result);
-        const maptiler_key = 'FAvR4BNiT6kBQVkKBpE4';
+        // const maptiler_key = 'FAvR4BNiT6kBQVkKBpE4';
         if (result.length == 1 || (new Set(result)).size == 1) { //can change result criteria
             var loc = result[0]
 
@@ -151,7 +150,11 @@ async function update_news() {
                     `https://api.geoapify.com/v1/geocode/search?text=` + loc + `&apiKey=48b97f0387f8404cbb0d7b81d6612995`
                 );
                 var result2 = await response2.json();
-                coord = result2.features[0].geometry.coordinates
+                featuresRes = result2.features
+                featuresRes.sort((a, b) => {
+                    return b.properties.rank.importance - a.properties.rank.importance;
+                });
+                coord = featuresRes[0].geometry.coordinates
             }
 
             coords.push(coord)
@@ -229,7 +232,7 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '10 7-23 * * *',
+    '54 7-23 * * *',
     // '*/3 * * * *',
     function() {
         console.log("updating news...");
@@ -263,12 +266,16 @@ var job = new CronJob(
     'America/New_York'
 );
 
-// async function test() {
+// async function testApi() {
 //     var response2 = await fetch(
-//         'https://api.geoapify.com/v1/geocode/search?text=Copenhagen&apiKey=48b97f0387f8404cbb0d7b81d6612995'
+//         'https://api.geoapify.com/v1/geocode/search?text=Aden&apiKey=48b97f0387f8404cbb0d7b81d6612995'
 //     );
 //     var result2 = await response2.json();
-//     coord = result2.features[0].geometry.coordinates
+//     featuresRes = result2.features
+//     featuresRes.sort((a, b) => {
+//         return b.properties.rank.importance - a.properties.rank.importance;
+//     });
+//     coord = featuresRes[0].geometry.coordinates
 //     console.log(coord)
 // }
-// test()
+// testApi()
