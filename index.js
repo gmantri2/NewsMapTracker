@@ -78,13 +78,14 @@ async function get_locations_list(news_text) {
 }
 
 const citiesMap = {};
-citiesMap["Doha"] = [55.31108244714429, 25.595757424620974];
-citiesMap["Mexico City"] = [-99.04820460987025, 19.57277134329857];
-citiesMap["San Juan"] = [-65.94532868479915, 18.493184104636903];
-citiesMap["Belgrade"] = [20.485134507215157, 44.932101250475256];
-citiesMap["Hanoi"] = [105.84832559788997, 21.108389027973118];
-citiesMap["Copenhagen"] = [12.437100168757228, 55.767786832674624];
-citiesMap["San Antonio"] = [-98.49514067173, 29.424600485036];
+// citiesMap["Doha"] = [55.31108244714429, 25.595757424620974];
+// citiesMap["Mexico City"] = [-99.04820460987025, 19.57277134329857];
+// citiesMap["San Juan"] = [-65.94532868479915, 18.493184104636903];
+// citiesMap["Belgrade"] = [20.485134507215157, 44.932101250475256];
+// citiesMap["Hanoi"] = [105.84832559788997, 21.108389027973118];
+// citiesMap["Copenhagen"] = [12.437100168757228, 55.767786832674624];
+// citiesMap["San Antonio"] = [-98.49514067173, 29.424600485036];
+citiesMap["Aden"] = [45.0285038352013, 12.7895851857731];
 
 async function update_news() {
 
@@ -101,7 +102,7 @@ async function update_news() {
     var news = result4.results
     var nextPageCode = result4.nextPage
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 4; i++) {
         if (nextPageCode) {
             var response5 = await fetch(
                 `https://newsdata.io/api/1/news?apikey=${key}&language=en&category=${categories}&page=${nextPageCode}`
@@ -139,12 +140,18 @@ async function update_news() {
 
             var coord = citiesMap[loc]
             if (!coord) {
-                var query2 = "&limit=1"
+                // var query2 = "&limit=1"
+                // var response2 = await fetch(
+                //     `https://api.maptiler.com/geocoding/` + loc + `.json?key=${maptiler_key}` + query2
+                // );
+                // var result2 = await response2.json();
+                // coord = result2.features[0].center
+
                 var response2 = await fetch(
-                    `https://api.maptiler.com/geocoding/` + loc + `.json?key=${maptiler_key}` + query2
+                    `https://api.geoapify.com/v1/geocode/search?text=` + loc + `&apiKey=48b97f0387f8404cbb0d7b81d6612995`
                 );
                 var result2 = await response2.json();
-                coord = result2.features[0].center
+                coord = result2.features[0].geometry.coordinates
             }
 
             coords.push(coord)
@@ -222,7 +229,7 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '30 7-23 * * *',
+    '10 7-23 * * *',
     // '*/3 * * * *',
     function() {
         console.log("updating news...");
@@ -255,3 +262,13 @@ var job = new CronJob(
     true,
     'America/New_York'
 );
+
+// async function test() {
+//     var response2 = await fetch(
+//         'https://api.geoapify.com/v1/geocode/search?text=Copenhagen&apiKey=48b97f0387f8404cbb0d7b81d6612995'
+//     );
+//     var result2 = await response2.json();
+//     coord = result2.features[0].geometry.coordinates
+//     console.log(coord)
+// }
+// test()
