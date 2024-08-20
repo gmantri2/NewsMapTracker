@@ -6,4 +6,5 @@ you will see the headline for that event as well as a link to the news article.
 
 Check it out here: https://newsmap.live/
 
-<img width="1382" alt="Screen Shot 2023-09-30 at 11 54 39 PM" src="https://github.com/gmantri2/NewsMapTracker/assets/84867535/b16f70ce-06a0-4e4f-8889-a441fb55f20f">
+<img width="1385" alt="Screen Shot 2024-08-20 at 2 18 32 PM" src="https://github.com/user-attachments/assets/c360a703-b9d5-42e3-99ee-c52e35a91e75">
+
