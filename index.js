@@ -36,6 +36,8 @@ var commonWords = new Set([
     "Pop",
     "Leer",
     "Brits",
+    "March",
+    "Martinez",
     "Much"
   ]);
 
@@ -129,7 +131,8 @@ async function update_news() {
             description_processed = helper(description.split(''))
             var result = await get_locations_list(description_processed);
         } else {
-            var result = await get_locations_list(text);
+            title_processed = helper(text.split(''))
+            var result = await get_locations_list(title_processed);
         }
 
         result = filter_words(result);
