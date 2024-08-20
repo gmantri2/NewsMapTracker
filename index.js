@@ -38,6 +38,8 @@ var commonWords = new Set([
     "Brits",
     "March",
     "Martinez",
+    "Richardson",
+    "Alliance",
     "Much"
   ]);
 
@@ -80,14 +82,6 @@ async function get_locations_list(news_text) {
 }
 
 const citiesMap = {};
-// citiesMap["Doha"] = [55.31108244714429, 25.595757424620974];
-// citiesMap["Mexico City"] = [-99.04820460987025, 19.57277134329857];
-// citiesMap["San Juan"] = [-65.94532868479915, 18.493184104636903];
-// citiesMap["Belgrade"] = [20.485134507215157, 44.932101250475256];
-// citiesMap["Hanoi"] = [105.84832559788997, 21.108389027973118];
-// citiesMap["Copenhagen"] = [12.437100168757228, 55.767786832674624];
-// citiesMap["San Antonio"] = [-98.49514067173, 29.424600485036];
-// citiesMap["Aden"] = [45.0285038352013, 12.7895851857731];
 citiesMap["Liverpool"] = [-2.9968803151624908, 53.40829622385262];
 
 async function update_news() {
@@ -128,10 +122,10 @@ async function update_news() {
 
         var description = news[i].description
         if (description) {
-            description_processed = helper(description.split(''))
+            var description_processed = helper(description.split(''))
             var result = await get_locations_list(description_processed);
         } else {
-            title_processed = helper(text.split(''))
+            var title_processed = helper(text.split(''))
             var result = await get_locations_list(title_processed);
         }
 
