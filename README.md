@@ -6,5 +6,6 @@ you will see the headline for that event as well as a link to the news article.
 
 Check it out here: https://newsmap.live/
 
-<img width="1385" alt="Screen Shot 2024-08-20 at 2 18 32 PM" src="https://github.com/user-attachments/assets/c360a703-b9d5-42e3-99ee-c52e35a91e75">
+<img width="1396" alt="Screenshot 2024-08-21 at 1 40 11 PM" src="https://github.com/user-attachments/assets/2fab3e9b-1cc5-4c9b-8efb-c30afe97ecad">
+
 
