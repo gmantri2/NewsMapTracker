@@ -38,6 +38,9 @@ var commonWords = new Set([
     "Brits",
     "March",
     "Martinez",
+    "Obama",
+    "Aki",
+    "Young",
     "Richardson",
     "Alliance",
     "Much"
