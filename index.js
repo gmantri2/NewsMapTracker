@@ -85,7 +85,8 @@ async function get_locations_list(news_text) {
 }
 
 const citiesMap = {};
-citiesMap["Liverpool"] = [-2.9968803151624908, 53.40829622385262];
+citiesMap["Liverpool"] = [-2.9968803, 53.4082962];
+citiesMap["Panama City"] = [-79.5341802, 8.9714493];
 
 async function update_news() {
 
@@ -239,7 +240,7 @@ app.get("/time", (req, res) => {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '30 7-9 * * *',
+    '30 7-23 * * *',
     // '*/3 * * * *',
     function() {
         console.log("updating news...");
