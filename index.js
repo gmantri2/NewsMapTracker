@@ -150,11 +150,18 @@ async function update_news() {
                     `https://api.geoapify.com/v1/geocode/search?text=` + loc + `&apiKey=48b97f0387f8404cbb0d7b81d6612995`
                 );
                 var result2 = await response2.json();
-                featuresRes = result2.features
+                var featuresRes = result2.features
+                if (featuresRes.length == 0) {
+                    continue
+                }
                 featuresRes.sort((a, b) => {
                     return b.properties.rank.importance - a.properties.rank.importance;
                 });
-                coord = featuresRes[0].geometry.coordinates
+                var geom = featuresRes[0].geometry
+                if (!geom) {
+                    continue
+                }
+                coord = geom.coordinates
             }
 
             coords.push(coord)
