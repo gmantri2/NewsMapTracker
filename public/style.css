@@ -9,6 +9,11 @@ html, body {
   width: 100%;
 }
 
+img {
+  width: 255px;
+  height: auto;
+}
+
 .ol-popup {
   position: absolute;
   background-color: white;

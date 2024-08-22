@@ -6,6 +6,8 @@ const container = document.getElementById('popup');
 const content = document.getElementById('popup-content');
 const closer = document.getElementById('popup-closer');
 
+var clicked_coordinate = null;
+
 const key = 'FAvR4BNiT6kBQVkKBpE4';
 
 const overlay = new ol.Overlay({
@@ -97,13 +99,14 @@ async function getInfo() {
 
     map.on('singleclick', function (evt) {
         var rets = map.forEachFeatureAtPixel(evt.pixel, function(feature, clicked_layer) {
-            for (var i = 0; i < layers.length; i++) {
-              if (clicked_layer == layers[i]) {
-                return [feature, i]
-              }
-            }
+            var index = layers.indexOf(clicked_layer)
+            return [feature, index]
         });
+
         if (rets) {
+            overlay.setPosition(undefined);
+            closer.blur();
+            
             const url = urls[rets[1]];
             const title = titles[rets[1]]
             const image_url = images[rets[1]]
@@ -112,16 +115,18 @@ async function getInfo() {
             var position = 3;
             var url_ref_new = [url_ref.slice(0, position), "target=\"_blank\" ", url_ref.slice(position)].join('');
 
+            clicked_coordinate = evt.coordinate
             content.innerHTML = url_ref_new.replace("a target=", "a class=titles target=");
             if (image_url != "") {
-                // var img = new Image();   
-                // img.onload = function(){
                 content.innerHTML += "<span class=break></span>"
-                content.innerHTML += "<img src="+image_url+" width='255px' height='153px' onerror=\"this.onerror=null;this.src='image-not-found.png'\">"
-                // };
-                // img.src = image_url; 
+                content.innerHTML += "<img src=" +
+                    image_url +
+                    " onload=\"overlay.setPosition(clicked_coordinate);\"" +
+                    " onerror=\"this.src='image-not-found.png';overlay.setPosition(clicked_coordinate);\">"
             }
-            overlay.setPosition(evt.coordinate);
+            else {
+                overlay.setPosition(clicked_coordinate);
+            }
         }
     });
 
