@@ -122,7 +122,7 @@ async function getInfo() {
                 content.innerHTML += "<img src=" +
                     image_url +
                     " onload=\"overlay.setPosition(clicked_coordinate);\"" +
-                    " onerror=\"this.src='image-not-found.png';overlay.setPosition(clicked_coordinate);\">"
+                    " onerror=\"this.src='image-not-found.png';this.onload=\"overlay.setPosition(clicked_coordinate);\"\">"
             }
             else {
                 overlay.setPosition(clicked_coordinate);
