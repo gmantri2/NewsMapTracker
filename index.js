@@ -120,6 +120,7 @@ async function update_news() {
     var urls = [];
     var titles = [];
     var images = [];
+    var citiesSet = new Set();
     for (let i = 0; i < news.length; i++) {
         var text = news[i].title
         if (!text) {
@@ -140,6 +141,9 @@ async function update_news() {
         // const maptiler_key = 'FAvR4BNiT6kBQVkKBpE4';
         if (result.length == 1 || (new Set(result)).size == 1) { //can change result criteria
             var loc = result[0]
+            if (citiesSet.has(loc)) {
+                continue
+            }
 
             var coord = citiesMap[loc]
             if (!coord) {
@@ -178,6 +182,8 @@ async function update_news() {
             } else {
                 images.push("")
             }
+
+            citiesSet.add(loc)
 
             // logs
             console.log("Title: " + text)
