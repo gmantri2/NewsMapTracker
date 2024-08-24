@@ -7,6 +7,8 @@ const content = document.getElementById('popup-content');
 const closer = document.getElementById('popup-closer');
 
 var clicked_coordinate = null;
+var highlightedMarker = null;
+var openedMarker = null;
 
 const key = 'FAvR4BNiT6kBQVkKBpE4';
 
@@ -22,6 +24,8 @@ const overlay = new ol.Overlay({
 closer.onclick = function () {
     overlay.setPosition(undefined);
     closer.blur();
+    openedMarker.setStyle(markerRegular)
+    openedMarker = null;
     return false;
 };
 
@@ -51,6 +55,23 @@ const map = new ol.Map({
     overlays: [overlay],
 });
 
+var markerHighlight = new ol.style.Style({
+    image: new ol.style.Icon({
+        anchor: [0.5, 1],
+        color: 'rgba(255, 0, 0, 0.25)',
+        crossOrigin: 'anonymous',
+        src: 'https://raw.githubusercontent.com/maptiler/openlayers-samples/main/default-marker/marker-icon.png',
+    })
+})
+
+var markerRegular = new ol.style.Style({
+    image: new ol.style.Icon({
+        anchor: [0.5, 1],
+        crossOrigin: 'anonymous',
+        src: 'https://raw.githubusercontent.com/maptiler/openlayers-samples/main/default-marker/marker-icon.png',
+    })
+})
+
 function create_marker(coord) {
     const layer = new ol.layer.Vector({
         source: new ol.source.Vector({
@@ -60,13 +81,7 @@ function create_marker(coord) {
             })
             ]
         }),
-        style: new ol.style.Style({
-            image: new ol.style.Icon({
-                anchor: [0.5, 1],
-                crossOrigin: 'anonymous',
-                src: 'https://raw.githubusercontent.com/maptiler/openlayers-samples/main/default-marker/marker-icon.png',
-            })
-        })
+        style: markerRegular
     });
     return layer;
 }
@@ -100,6 +115,11 @@ async function getInfo() {
     map.on('singleclick', function (evt) {
         var rets = map.forEachFeatureAtPixel(evt.pixel, function(feature, clicked_layer) {
             var index = layers.indexOf(clicked_layer)
+            if (openedMarker) {
+                openedMarker.setStyle(markerRegular)
+            }
+            openedMarker = feature
+            openedMarker.setStyle(markerHighlight)
             return [feature, index]
         });
 
@@ -131,12 +151,23 @@ async function getInfo() {
     });
 
     map.on("pointermove", function (evt) {
-        var hit = this.forEachFeatureAtPixel(evt.pixel, function() {
+        var hit = this.forEachFeatureAtPixel(evt.pixel, function(marker) {
+            marker.setStyle(markerHighlight);
+            if (highlightedMarker && highlightedMarker != marker) {
+                highlightedMarker.setStyle(markerRegular);
+            }
+            highlightedMarker = marker;
             return true;
         }); 
         if (hit) {
             this.getTargetElement().style.cursor = 'pointer';
         } else {
+            if (highlightedMarker) {
+                if (highlightedMarker != openedMarker) {
+                    highlightedMarker.setStyle(markerRegular);
+                }
+                highlightedMarker = null;
+            }
             this.getTargetElement().style.cursor = '';
         }
     });

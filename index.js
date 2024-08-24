@@ -90,6 +90,7 @@ async function get_locations_list(news_text) {
 const citiesMap = {};
 citiesMap["Liverpool"] = [-2.9968803, 53.4082962];
 citiesMap["Panama City"] = [-79.5341802, 8.9714493];
+citiesMap["Feni"] = [91.3965276, 23.0068161];
 
 async function update_news() {
 
