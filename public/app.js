@@ -58,7 +58,7 @@ const map = new ol.Map({
 var markerHighlight = new ol.style.Style({
     image: new ol.style.Icon({
         anchor: [0.5, 1],
-        color: 'rgba(255, 0, 0, 0.25)',
+        color: 'rgba(255, 0, 0, 0.6)',
         crossOrigin: 'anonymous',
         src: 'https://raw.githubusercontent.com/maptiler/openlayers-samples/main/default-marker/marker-icon.png',
     })
