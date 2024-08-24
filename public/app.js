@@ -29,6 +29,14 @@ closer.onclick = function () {
     return false;
 };
 
+closer.onmouseenter = function () {
+    closer.style.color = 'rgba(255, 20, 20, 1.0)';
+}
+
+closer.onmouseleave = function () {
+    closer.style.color = null;
+}
+
 const attribution = new ol.control.Attribution({
     collapsible: false,
 });
