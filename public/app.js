@@ -161,7 +161,7 @@ async function getInfo() {
     map.on("pointermove", function (evt) {
         var hit = this.forEachFeatureAtPixel(evt.pixel, function(marker) {
             marker.setStyle(markerHighlight);
-            if (highlightedMarker && highlightedMarker != marker) {
+            if (highlightedMarker && highlightedMarker != marker && highlightedMarker != openedMarker) {
                 highlightedMarker.setStyle(markerRegular);
             }
             highlightedMarker = marker;
