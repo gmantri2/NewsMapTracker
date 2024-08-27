@@ -12,6 +12,10 @@ const { loadPyodide } = require("pyodide");
 
 var commonWords = new Set([
     "Police",
+    "Independence",
+    "Davis",
+    "Burton",
+    "Brandon",
     "Best",
     "Sale",
     "Most",
