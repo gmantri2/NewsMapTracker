@@ -15,6 +15,7 @@ var commonWords = new Set([
     "Independence",
     "Davis",
     "Burton",
+    "Pen",
     "Brandon",
     "Best",
     "Sale",
