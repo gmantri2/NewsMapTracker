@@ -197,6 +197,10 @@ async function updateTime() {
     const updatedTime = await lastUpdatedTime.json()
     const time = updatedTime.time;
 
+    if (!time) {
+        return
+    }
+
     const date = new Date(time);
     var hours = date.getHours();
     var minutes = date.getMinutes();
