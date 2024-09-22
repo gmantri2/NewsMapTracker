@@ -181,7 +181,7 @@ async function getInfo() {
     });
 }
 
-async function updateTime() {
+async function getTime() {
     var currUrl = window.location.href
     var lastUpdatedTime = await fetch(currUrl + `time`, {
         method: 'GET'
@@ -223,7 +223,6 @@ async function getDate() {
 
     var dateElement = document.getElementById("data")
     dateElement.innerHTML = "<div class=\"date-text\">" + months[currMonth] + " " + currDay + "</div>";
-    //dateElement.innerHTML += "<div class=\"time-text\">" + "Last updated at: 11:30 pm" + "</div>"
 }
 
 // function sleep(ms) {
@@ -232,10 +231,12 @@ async function getDate() {
 
 async function run() {
     await getInfo();
-    document.getElementById("loader").style.display = "none";
-    map.setTarget('map');
     await getDate();
-    await updateTime();
+    await getTime();
+
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("data").style.display = "block";
+    map.setTarget('map');
 }
 
 run();
