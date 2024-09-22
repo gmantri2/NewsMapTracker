@@ -197,7 +197,7 @@ async function updateTime() {
     const updatedTime = await lastUpdatedTime.json()
     const time = updatedTime.time;
 
-    if (!time) {
+    if (time == "NA") {
         return
     }
 
