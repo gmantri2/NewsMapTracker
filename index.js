@@ -38,6 +38,8 @@ var commonWords = new Set([
     "Asia",
     "George",
     "La Cruz",
+    "Ina",
+    "Murray",
     "Washington",
     "Un",
     "Of",
@@ -98,6 +100,8 @@ const citiesMap = {};
 citiesMap["Liverpool"] = [-2.9968803, 53.4082962];
 citiesMap["Panama City"] = [-79.5341802, 8.9714493];
 citiesMap["Feni"] = [91.3965276, 23.0068161];
+citiesMap["San Juan"] = [-65.7885118, 18.5006418];
+citiesMap["Chesham"] = [-0.6123113, 51.7062914];
 
 async function update_news() {
 
